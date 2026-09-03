@@ -1,0 +1,83 @@
+@model NewLifeHospital.Models.PatientInfoDetail
+
+@{
+    ViewData["Title"] = "RegisterForMembership";
+}
+
+<h2>RegisterForMembership</h2>
+
+<form asp-action="RegisterForMembership" method="post">
+    <div class="form-horizontal">
+        <h4>PatientInfo</h4>
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="form-group">
+            <label asp-for="PatientName" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <input asp-for="PatientName" class="form-control" />
+                <span asp-validation-for="PatientName" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Age" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <input asp-for="Age" class="form-control" />
+                <span asp-validation-for="Age" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Gender" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <input asp-for="Gender" class="form-control" />
+                <span asp-validation-for="Gender" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="BloodGroup" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <input asp-for="BloodGroup" class="form-control" />
+                <span asp-validation-for="BloodGroup" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="ContactNumber" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <input asp-for="ContactNumber" class="form-control" />
+                <span asp-validation-for="ContactNumber" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="EmailID" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <input asp-for="EmailID" class="form-control" />
+                <span asp-validation-for="EmailID" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Register" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-action="CancelMembership">Cancel Membership</a> |
+    <a asp-action="UpdateEmail">Update Email</a>
+</div>
+
+@if (ViewBag.Message != null)
+{
+    <p class="text-success"><b>@ViewBag.Message</b></p>
+}
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

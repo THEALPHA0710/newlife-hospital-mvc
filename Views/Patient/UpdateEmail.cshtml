@@ -1,0 +1,41 @@
+@{
+    ViewData["Title"] = "UpdateEmail";
+}
+
+<h2>UpdateEmail</h2>
+
+<form asp-action="UpdateEmail" method="post">
+    <div class="form-horizontal">
+        <h4>PatientInfo</h4>
+        <hr />
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="registrationId">RegistrationID</label>
+            <div class="col-md-10">
+                <input type="text" id="registrationId" name="registrationId" class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="email">EmailID</label>
+            <div class="col-md-10">
+                <input type="text" id="email" name="email" class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Modify" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-action="RegisterForMembership">Back to Registration</a>
+</div>
+
+@if (ViewBag.Message != null)
+{
+    <p class="text-success"><b>@ViewBag.Message</b></p>
+}
