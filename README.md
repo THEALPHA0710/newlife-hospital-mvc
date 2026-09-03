@@ -28,3 +28,23 @@ And set the default route in Configure:
     endpoints.MapControllerRoute("default", "{controller=Patient}/{action=RegisterForMembership}/{id?}");
 
 Start page: /Patient/RegisterForMembership
+
+## Verification status
+Built and exercised end to end on 2026-09-03 (.NET SDK 8.0.424 building the net6.0 target):
+- `dotnet build` - succeeded, 0 errors (only the net6.0 end-of-support warning).
+- `dotnet ef migrations add InitialCreate` against the SqlServer provider generates the
+  exact table from the spec: int IDENTITY(1,1) PK, varchar(25/10/4/10/30), NOT NULL on
+  every column except BloodGroup.
+- App run against a SQLite copy of the DbContext and driven over HTTP:
+  - Register with valid data -> row inserted, identity RegistrationID returned in the message.
+  - Register with invalid data -> all six data annotations reported, nothing inserted.
+  - UpdateEmail valid / bad email format / unknown RegistrationID -> correct message each time.
+  - CancelMembership unknown id -> "No record found"; existing id -> deleted, second delete
+    correctly reports not found.
+
+## Known spec ambiguity
+The question lists BloodGroup as `Required` in the model bullet list, but the database table
+shows `Varchar(4)` with no NOT NULL, and the "MVC model data annotation" section names only
+PatientName, Age, Gender, ContactNumber and EmailID as required. This code follows the latter
+two (BloodGroup optional). To make it required, add `[Required]` to the BloodGroup property
+in Models/PatientInfoDetail.cs.
